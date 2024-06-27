@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" >
+	<head>
+		<meta charset="UTF-8">
+		<title>Список книг</title>
+	</head>
+	
+	<body>
+		<h1>Список книг</h1>
+		
+		<div th:each="book : ${@bookProvider.bookList}"> 
+			<span th:text="${book.id}"></span>
+			<span th:text="${book.name}"></span>
+			<br>
+		</div>
+	</body>
+</html>
