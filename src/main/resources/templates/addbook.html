@@ -7,7 +7,7 @@
 	
 	<body>
 		<h1>Добавить книгу</h1>
-		<form th:action="@{/result}" th:object="${book}" method="post">
+		<form th:action="@{/employee/save-book}" th:object="${book}" method="post">
 			<div> 
     			<label>ИД: </label>
             	<span th:text="*{id}"></span>
