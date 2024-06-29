@@ -2,20 +2,23 @@ package com.bookstore;
 
 import java.io.Serializable;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class Book implements Serializable {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 201857762603516167L;
 
 	static int new_id = 0;
 	
+	@Getter @Setter
 	private String name;
-	public String getName() { return name; }
-	public void setName(String name) { this.name = name; };
 	
+	@Getter @Setter
 	private String id;
-	public String getId() { return id; }
+	
+	@Getter @Setter
+	private String author;
 	
 	public Book() {
 		this.id = "" + new_id++;
