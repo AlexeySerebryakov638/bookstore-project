@@ -8,17 +8,93 @@
 	<body>
 		<h1>Добавить книгу</h1>
 		<form th:action="@{/employee/save-book}" th:object="${book}" method="post">
+		
 			<div> 
     			<label>ИД: </label>
             	<span th:text="*{id}"></span>
     		</div>
+    		
     		<div> 
     			<label>Название: </label>
             	<input type="text" class="form-control" th:field="*{name}">
     		</div>
+    		
+    		<div> 
+    			<label>Автор: </label>
+            	<input type="text" class="form-control" th:field="*{author}">
+    		</div>
+    		
+    		<div>
+    			<label>Язык: </label>
+	    		<select th:field="*{language}">
+				    <option th:value="'russian'">Русский</option>
+				    <option th:value="'english'">Английский</option>
+				</select>
+			</div>
+			
+    		<div> 
+    			<label>Год издания: </label>
+            	<input type="text" class="form-control" th:field="*{year}">
+    		</div>
+			
+    		<div>
+    			<label>Жанр: </label>
+	    		<select th:field="*{genre}">
+				    <option th:value="'detective'">Детектив</option>
+				    <option th:value="'fiction'">Художественная литература</option>
+				    <option th:value="'education'">Учебная литература</option>
+				</select>
+			</div>
+			
+    		<div> 
+    			<label>Описание: </label>
+            	<input type="text" class="form-control" th:field="*{description}">
+    		</div>
+    		
+    		<div> 
+    			<label>ISBN: </label>
+            	<input type="text" class="form-control" th:field="*{isbn}">
+    		</div>
+    		
+    		<div> 
+    			<label>Кол-во страниц: </label>
+            	<input type="text" class="form-control" th:field="*{pages}">
+    		</div>
+    		
+    		<div> 
+    			<label>Оценка (1-10): </label>
+            	<input type="text" class="form-control" th:field="*{rate}">
+    		</div>
+    		
+    		<div> 
+    			<label>Новинка: </label>
+            	<input type="checkbox" th:checked="${new_book}"/>
+    		</div>
+    		
+    		<div>
+    			<label>Обложка: </label>
+	    		<select th:field="*{image}">
+				    <option th:value="@{static/default.jpg}"> default </option>
+				    <option th:value="@{static/blue.jpg}"> blue </option>
+				    <option th:value="@{static/green.jpg}"> geen </option>
+				    <option th:value="@{static/purple.jpg}"> purple </option>
+				</select>
+			</div>
+			
+    		<div> 
+    			<label>Цена: </label>
+            	<input type="text" class="form-control" th:field="*{cost}">
+    		</div>
+    		
+    		<div> 
+    			<label>Количество на складе: </label>
+            	<input type="text" class="form-control" th:field="*{amount}">
+    		</div>
+			
     		<div> 
     			<input type="submit" value="Добавить книгу" /> 
     		</div>
+    		
 		</form>
 	</body>
 </html>
