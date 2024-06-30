@@ -9,10 +9,40 @@
 	<body>
 		<h1>Список книг</h1>
 		
-		<div th:each="book : ${@bookProvider.bookList}"> 
-			<span th:text="${book.id}"></span>
-			<span th:text="${book.name}"></span>
-			<br>
-		</div>
+		<table>
+			<tr> 
+				<th>id</th>
+				<th>Обложка</th>
+				<th></th>
+				<th>Название</th>
+				<th>Автор</th>
+				<th>Язык</th>
+				<th>Год издания</th>
+				<th>Жанр</th>
+				<th>Описание</th>
+				<th>ISBN</th>
+				<th>Кол-во страниц</th>
+				<th>Оценка</th>
+				<th>Цена</th>
+				<th>Кол-во на складе</th>
+			</tr>
+			<tr th:each="book : ${@bookProvider.bookList}">
+				<td> <span th:text="${book.id}"></span></td>
+				<td> <img th:src="@{''+${book.image}}" alt="${book.image}"/> </td>
+				<td> <span th:text="${book.new_book} ? '!!!' : ''"></span></td>
+				<td> <span th:text="${book.name}"></span></td>
+				<td> <span th:text="${book.author}"></span></td>
+				<td> <span th:text="${book.language}"></span></td>
+				<td> <span th:text="${book.year}"></span></td>
+				<td> <span th:text="${book.genre}"></span></td>
+				<td> <span th:text="${book.description}"></span></td>
+				<td> <span th:text="${book.isbn}"></span></td>
+				<td> <span th:text="${book.pages}"></span></td>
+				<td> <span th:text="${book.rate} > 0 ? (${book.rate}+' / 10') : ''"></span></td>
+				<td> <span th:text="${book.cost}"></span></td>
+				<td> <span th:text="${book.amount}"></span></td>
+			</tr>
+		</table>
+			
 	</body>
 </html>
