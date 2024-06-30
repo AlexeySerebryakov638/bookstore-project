@@ -9,11 +9,8 @@ public class Book implements Serializable {
 	
 	private static final long serialVersionUID = 201857762603516167L;
 
-	static int new_id = 0;
-
-	@Getter
-	private String id;
-	
+	@Getter @Setter
+	private Integer id;
 	@Getter @Setter
 	private String name;
 	@Getter @Setter
@@ -41,7 +38,7 @@ public class Book implements Serializable {
 	@Getter @Setter
 	private Integer amount;
 	
-	public Book() {
-		this.id = "" + new_id++;
+	public Book(int id) {
+		this.id = id;
 	}
 }

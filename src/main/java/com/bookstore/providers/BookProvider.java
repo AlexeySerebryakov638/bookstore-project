@@ -17,4 +17,8 @@ public class BookProvider {
 	public void addBook(Book book) {
 		bookList.add(book);
 	}
+	
+	public int getId() {
+		return bookList.size();
+	}
 }

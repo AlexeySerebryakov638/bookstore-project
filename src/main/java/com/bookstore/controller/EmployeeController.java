@@ -25,12 +25,13 @@ public class EmployeeController {
     
     @GetMapping("/add-book")
     public String add(Model model) {
-    	model.addAttribute("book", new Book());
+    	model.addAttribute("book", new Book(bookProvider.getId()));
     	return "addbook";
     }
     
     @PostMapping("/save-book")
     public String save(@ModelAttribute Book book) {
+    	book.setId(bookProvider.getId());
     	bookProvider.addBook(book);
     	return "savebook";
     }
