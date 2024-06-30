@@ -37,6 +37,9 @@ public class Book implements Serializable {
 	private Float cost;
 	@Getter @Setter
 	private Integer amount;
+
+	public Book() {
+	}
 	
 	public Book(int id) {
 		this.id = id;

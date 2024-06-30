@@ -30,7 +30,7 @@
 				<td> <span th:text="${book.id}"></span></td>
 				<td> <img th:src="@{''+${book.image}}" alt="${book.image}"/> </td>
 				<td> <span th:text="${book.new_book} ? '!!!' : ''"></span></td>
-				<td> <span th:text="${book.name}"></span></td>
+				<td> <a th:text="${book.name}" th:href="@{/book}+'?id='+${book.id}"></a></td>
 				<td> <span th:text="${book.author}"></span></td>
 				<td> <span th:text="${book.language}"></span></td>
 				<td> <span th:text="${book.year}"></span></td>
