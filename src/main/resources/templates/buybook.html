@@ -2,10 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org" >
 	<head>
 		<meta charset="UTF-8">
-		<title>Добавлено</title>
+		<title>Добавлено в корзину</title>
 	</head>
+	
 	<body>
-		<h1>Книга добавлена.</h1>
+		<h1>Книга добавлена в корзину.</h1>
+		
+		<a th:href="@{/cart}">Перейти в корзину</a> <br/>
 		<a th:href="@{/}">Вернуться к списку книг</a>
 	</body>
 </html>

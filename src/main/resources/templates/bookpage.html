@@ -20,5 +20,13 @@
 		<span th:text="${book.rate} > 0 ? (${book.rate}+' / 10') : ' - '"></span>
 		<span th:text="${book.cost}"></span>
 		<span th:text="${book.amount}"></span>
+		
+		<div>
+			<span th:text="${curamount} > 0 ? ('Товар уже есть в корзине в количестве: ' + ${curamount}) : ''"></span> <br/>
+			<form th:action="@{/buy}+'?amount='+${amount}+'&id='+${book.id}" th:object="${amount}" method="post">
+				<input type="number" value="1" th:value="${amount}" min=0 /> <br/>
+				<input type="submit" th:value="${curamount} > 0 ? 'Добавить еще' : 'Купить'" />
+			</form>
+		</div>
 	</body>
 </html>

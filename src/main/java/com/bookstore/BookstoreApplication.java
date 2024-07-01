@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bookstore.providers.BookProvider;
+import com.bookstore.providers.CartProvider;
 
 @RestController
 @SpringBootApplication
@@ -20,4 +21,8 @@ public class BookstoreApplication {
 		return new BookProvider();
 	}
 
+	@Bean(name="cartProvider")
+	public CartProvider getCartProvider() {
+		return new CartProvider();
+	}
 }
