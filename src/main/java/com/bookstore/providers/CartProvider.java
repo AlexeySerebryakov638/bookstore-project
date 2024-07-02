@@ -28,10 +28,20 @@ public class CartProvider {
 	
 	public void addBook(CartInsert insert) {
 		bookList.put(insert.getId(), bookList.getOrDefault(insert.getId(), 0) + insert.getAmount());
-		System.out.println(insert.getId() + " " + insert.getAmount());
+		if (bookList.get(insert.getId()) <= 0) {
+			bookList.remove(insert.getId());
+			}
 	}
 	
 	public int getId() {
 		return bookList.size();
+	}
+	
+	public float getTotalCost() {
+		float ans = 0;
+		for (int id : bookList.keySet()) {
+			ans += bookProvider.getBook(id).getCost() * bookList.get(id);
+		}
+		return ans;
 	}
 }

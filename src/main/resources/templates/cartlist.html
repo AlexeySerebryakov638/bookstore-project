@@ -43,6 +43,10 @@
 				<td> <span th:text="${@cartProvider.getBookCount(id)}"></span></td>
 			</tr>
 		</table>
-			
+		
+		<div>
+			<h2>Общая стоимость</h2>
+			<span th:text="${@cartProvider.getTotalCost()}"></span>
+		</div>
 	</body>
 </html>
