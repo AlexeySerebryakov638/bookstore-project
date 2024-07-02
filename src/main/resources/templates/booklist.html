@@ -40,7 +40,7 @@
 				<td> <span th:text="${book.pages}"></span></td>
 				<td> <span th:text="${book.rate} > 0 ? (${book.rate}+' / 10') : ''"></span></td>
 				<td> <span th:text="${book.cost}"></span></td>
-				<td> <span th:text="${book.amount}"></span></td>
+				<td> <span th:text="(${book.amount} == 0) ? 'Нет в наличии': ((${book.amount < 10})? 'Осталось мало' : 'Есть в наличии')"></span></td>
 			</tr>
 		</table>
 			
