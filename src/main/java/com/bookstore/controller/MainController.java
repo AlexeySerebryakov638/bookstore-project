@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.bookstore.CartInsert;
 import com.bookstore.providers.BookProvider;
 import com.bookstore.providers.CartProvider;
 
@@ -26,9 +28,10 @@ public class MainController {
     
     @GetMapping("/book")
     public String bookpage(Model model, @RequestParam Integer id) {
-    	model.addAttribute("book", bookProvider.getBook(id));
-    	model.addAttribute("amount", 1);
-    	model.addAttribute("curamount", cartProvider.getBookCount(bookProvider.getBook(id)));
+    	var book = bookProvider.getBook(id);
+    	model.addAttribute("book", book);
+    	model.addAttribute("insert", new CartInsert());
+    	model.addAttribute("curamount", cartProvider.getBookCount(id));
     	return "bookpage";
     }
     
@@ -40,8 +43,8 @@ public class MainController {
     
     
     @PostMapping("/buy")
-    public String buy(@RequestParam int id, @RequestParam int amount) {
-    	cartProvider.addBook(bookProvider.getBook(id), amount);
+    public String buy(@ModelAttribute CartInsert insert) {
+    	cartProvider.addBook(insert);
     	return "buybook";
     }
 }

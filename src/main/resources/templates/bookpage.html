@@ -23,8 +23,9 @@
 		
 		<div>
 			<span th:text="${curamount} > 0 ? ('Товар уже есть в корзине в количестве: ' + ${curamount}) : ''"></span> <br/>
-			<form th:action="@{/buy}+'?amount='+${amount}+'&id='+${book.id}" th:object="${amount}" method="post">
-				<input type="number" value="1" th:value="${amount}" min=0 /> <br/>
+			<form th:action="@{/buy}" th:object="${insert}" method="post">
+				<input type="hidden" th:field="*{id}" th:value="${book.id}" />
+				<input type="number" th:field="*{amount}" value=1 min=0 /> <br/>
 				<input type="submit" th:value="${curamount} > 0 ? 'Добавить еще' : 'Купить'" />
 			</form>
 		</div>

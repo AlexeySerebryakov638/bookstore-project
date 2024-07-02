@@ -3,25 +3,32 @@ package com.bookstore.providers;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.bookstore.Book;
+import com.bookstore.CartInsert;
 
 public class CartProvider {
-	Map<Book, Integer> bookList;
+	@Autowired
+	BookProvider bookProvider;
+	
+	Map<Integer, Integer> bookList;
 	
 	public CartProvider() {
 		bookList = new HashMap<>();
 	}
 	
-	public Map<Book, Integer> getBookList() {
+	public Map<Integer, Integer> getBookList() {
 		return bookList;
 	}
 	
-	public Integer getBookCount(Book book) {
-		return bookList.getOrDefault(book, 0);
+	public Integer getBookCount(int id) {
+		return bookList.getOrDefault(id, 0);
 	}
 	
-	public void addBook(Book book, int amount) {
-		bookList.put(book, bookList.getOrDefault(book, 0) + amount);
+	public void addBook(CartInsert insert) {
+		bookList.put(insert.getId(), bookList.getOrDefault(insert.getId(), 0) + insert.getAmount());
+		System.out.println(insert.getId() + " " + insert.getAmount());
 	}
 	
 	public int getId() {
