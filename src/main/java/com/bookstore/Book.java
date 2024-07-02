@@ -9,18 +9,39 @@ public class Book implements Serializable {
 	
 	private static final long serialVersionUID = 201857762603516167L;
 
-	static int new_id = 0;
-	
+	@Getter @Setter
+	private Integer id;
 	@Getter @Setter
 	private String name;
-	
-	@Getter @Setter
-	private String id;
-	
 	@Getter @Setter
 	private String author;
-	
+	@Getter @Setter
+	private String language;
+	@Getter @Setter
+	private Integer year;
+	@Getter @Setter
+	private String genre;
+	@Getter @Setter
+	private String description;
+	@Getter @Setter
+	private String isbn;
+	@Getter @Setter
+	private Integer pages;
+	@Getter @Setter
+	private Integer rate;
+	@Getter @Setter
+	private Boolean new_book;
+	@Getter @Setter
+	private String image;
+	@Getter @Setter
+	private Float cost;
+	@Getter @Setter
+	private Integer amount;
+
 	public Book() {
-		this.id = "" + new_id++;
+	}
+	
+	public Book(int id) {
+		this.id = id;
 	}
 }

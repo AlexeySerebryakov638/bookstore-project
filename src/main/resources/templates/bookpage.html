@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>Книга</title>
+	</head>
+	
+	<body>
+		ИД: <span th:text="${book.id}"></span>
+		<img th:src="@{''+${book.image}}" alt="${book.image}"/>
+		Название: <span th:text="${book.new_book} ? '!!!' : ''"></span>
+		<span th:text="${book.name}"></span>
+		<span th:text="${book.author}"></span>
+		<span th:text="${book.language}"></span>
+		<span th:text="${book.year}"></span>
+		<span th:text="${book.genre}"></span>
+		<span th:text="${book.description}"></span>
+		<span th:text="${book.isbn}"></span>
+		<span th:text="${book.pages}"></span>
+		<span th:text="${book.rate} > 0 ? (${book.rate}+' / 10') : ' - '"></span>
+		<span th:text="${book.cost}"></span>
+		<span th:text="${book.amount}"></span>
+		
+		<div>
+			<span th:text="${curamount} > 0 ? ('Товар уже есть в корзине в количестве: ' + ${curamount}) : ''"></span> <br/>
+			<a th:href="@{/cart}">Проверить корзину</a><br/>
+			<form th:action="@{/buy}" th:object="${insert}" method="post">
+				<input type="hidden" th:field="*{id}" th:value="${book.id}" />
+				<input type="number" th:field="*{amount}" value=1 min=0 /> <br/>
+				<input type="submit" th:value="${curamount} > 0 ? 'Добавить еще' : 'Купить'" />
+			</form>
+		</div>
+	</body>
+</html>

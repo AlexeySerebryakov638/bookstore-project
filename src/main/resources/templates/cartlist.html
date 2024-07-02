@@ -3,11 +3,11 @@
 <html xmlns:th="http://www.thymeleaf.org" >
 	<head>
 		<meta charset="UTF-8">
-		<title>Список книг</title>
+		<title>Корзина</title>
 	</head>
 	
 	<body>
-		<h1>Список книг</h1>
+		<h1>Корзина</h1>
 		
 		<table>
 			<tr> 
@@ -24,9 +24,9 @@
 				<th>Кол-во страниц</th>
 				<th>Оценка</th>
 				<th>Цена</th>
-				<th>Кол-во на складе</th>
+				<th>Кол-во в корзине</th>
 			</tr>
-			<tr th:each="book : ${@bookProvider.bookList}">
+			<tr th:each="id : ${@cartProvider.bookList.keySet}" th:with="book=${@bookProvider.getBook(id)}">
 				<td> <span th:text="${book.id}"></span></td>
 				<td> <img th:src="@{''+${book.image}}" alt="${book.image}"/> </td>
 				<td> <span th:text="${book.new_book} ? '!!!' : ''"></span></td>
@@ -40,9 +40,13 @@
 				<td> <span th:text="${book.pages}"></span></td>
 				<td> <span th:text="${book.rate} > 0 ? (${book.rate}+' / 10') : ''"></span></td>
 				<td> <span th:text="${book.cost}"></span></td>
-				<td> <span th:text="(${book.amount} == 0) ? 'Нет в наличии': ((${book.amount < 10})? 'Осталось мало' : 'Есть в наличии')"></span></td>
+				<td> <span th:text="${@cartProvider.getBookCount(id)}"></span></td>
 			</tr>
 		</table>
-			
+		
+		<div>
+			<h2>Общая стоимость</h2>
+			<span th:text="${@cartProvider.getTotalCost()}"></span>
+		</div>
 	</body>
 </html>
