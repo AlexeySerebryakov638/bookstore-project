@@ -45,7 +45,6 @@ public class MainController {
     
     @PostMapping("/buy")
     public String buy(@ModelAttribute CartInsert insert) {
-    	System.out.println(insert.getId() + " " + insert.getAmount());
     	cartProvider.addBook(insert);
     	return "buybook";
     }
