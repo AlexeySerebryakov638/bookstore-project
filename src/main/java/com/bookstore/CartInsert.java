@@ -1,12 +1,10 @@
 package com.bookstore;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
+@Data
 public class CartInsert {
-	@Getter @Setter
 	private int id;
-	@Getter @Setter
 	private int amount;
 	
 	public CartInsert() {

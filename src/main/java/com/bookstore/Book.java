@@ -2,40 +2,36 @@ package com.bookstore;
 
 import java.io.Serializable;
 
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.Data;
 
+@Entity
+@Table(name="BOOKS")
+@Data
 public class Book implements Serializable {
 	
 	private static final long serialVersionUID = 201857762603516167L;
 
-	@Getter @Setter
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
-	@Getter @Setter
+	
 	private String name;
-	@Getter @Setter
 	private String author;
-	@Getter @Setter
 	private String language;
-	@Getter @Setter
-	private Integer year;
-	@Getter @Setter
+	private Integer publicationYear;
 	private String genre;
-	@Getter @Setter
 	private String description;
-	@Getter @Setter
 	private String isbn;
-	@Getter @Setter
 	private Integer pages;
-	@Getter @Setter
 	private Integer rate;
-	@Getter @Setter
-	private Boolean new_book;
-	@Getter @Setter
+	private Boolean newBook;
 	private String image;
-	@Getter @Setter
 	private Float cost;
-	@Getter @Setter
 	private Integer amount;
 
 	public Book() {

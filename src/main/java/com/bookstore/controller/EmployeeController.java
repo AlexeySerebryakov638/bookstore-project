@@ -10,13 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.bookstore.Book;
 import com.bookstore.providers.BookProvider;
+import com.bookstore.providers.BookRepository;
 
 
 @Controller
 @RequestMapping("/employee")
 public class EmployeeController {
 	@Autowired
-	BookProvider bookProvider;
+	BookRepository bookRepository;
     
     @GetMapping("")
     public String employee(Model model) {
@@ -25,14 +26,13 @@ public class EmployeeController {
     
     @GetMapping("/add-book")
     public String add(Model model) {
-    	model.addAttribute("book", new Book(bookProvider.getId()));
+    	model.addAttribute("book", new Book());
     	return "addbook";
     }
     
     @PostMapping("/save-book")
     public String save(@ModelAttribute Book book) {
-    	book.setId(bookProvider.getId());
-    	bookProvider.addBook(book);
+    	bookRepository.save(book);
     	return "savebook";
     }
 }
