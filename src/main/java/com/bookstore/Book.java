@@ -7,11 +7,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name="BOOKS")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Book implements Serializable {
 	
 	private static final long serialVersionUID = 201857762603516167L;
@@ -34,10 +38,12 @@ public class Book implements Serializable {
 	private Float cost;
 	private Integer amount;
 
-	public Book() {
-	}
-	
 	public Book(int id) {
 		this.id = id;
+	}
+
+	public Book(int id, String name) {
+		this.id = id;
+		this.name = name;
 	}
 }
