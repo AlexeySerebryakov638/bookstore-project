@@ -9,15 +9,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bookstore.CartInsert;
-import com.bookstore.providers.BookProvider;
+import com.bookstore.providers.BookRepository;
 import com.bookstore.providers.CartProvider;
 
 
 @Controller
 public class MainController {
 	@Autowired
-	BookProvider bookProvider;
-
+	BookRepository bookRepository;
+	
 	@Autowired
 	CartProvider cartProvider;
     
@@ -28,7 +28,7 @@ public class MainController {
     
     @GetMapping("/book")
     public String bookpage(Model model, @RequestParam Integer id) {
-    	var book = bookProvider.getBook(id);
+    	var book = bookRepository.findById(id).get();
     	model.addAttribute("book", book);
     	model.addAttribute("insert", new CartInsert());
     	model.addAttribute("curamount", cartProvider.getBookCount(id));

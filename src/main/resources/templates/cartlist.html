@@ -26,14 +26,14 @@
 				<th>Цена</th>
 				<th>Кол-во в корзине</th>
 			</tr>
-			<tr th:each="id : ${@cartProvider.bookList.keySet}" th:with="book=${@bookProvider.getBook(id)}">
+			<tr th:each="id : ${@cartProvider.bookList.keySet}" th:if="${@bookRepository.findById(id).isPresent()}" th:with="book=${@bookRepository.findById(id).get()}">
 				<td> <span th:text="${book.id}"></span></td>
 				<td> <img th:src="@{''+${book.image}}" alt="${book.image}"/> </td>
-				<td> <span th:text="${book.new_book} ? '!!!' : ''"></span></td>
+				<td> <span th:text="${book.newBook} ? '!!!' : ''"></span></td>
 				<td> <a th:text="${book.name}" th:href="@{/book}+'?id='+${book.id}"></a></td>
 				<td> <span th:text="${book.author}"></span></td>
 				<td> <span th:text="${book.language}"></span></td>
-				<td> <span th:text="${book.year}"></span></td>
+				<td> <span th:text="${book.publicationYear}"></span></td>
 				<td> <span th:text="${book.genre}"></span></td>
 				<td> <span th:text="${book.description}"></span></td>
 				<td> <span th:text="${book.isbn}"></span></td>

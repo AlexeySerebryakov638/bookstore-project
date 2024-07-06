@@ -4,13 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import com.bookstore.Book;
 import com.bookstore.CartInsert;
 
+@Service
 public class CartProvider {
 	@Autowired
-	BookProvider bookProvider;
+	BookRepository bookRepository;
 	
 	Map<Integer, Integer> bookList;
 	
@@ -39,8 +40,9 @@ public class CartProvider {
 	
 	public float getTotalCost() {
 		float ans = 0;
-		for (int id : bookList.keySet()) {
-			ans += bookProvider.getBook(id).getCost() * bookList.get(id);
+		for (int id : bookList.keySet()) {	
+			var book = bookRepository.findById(id);
+			if (book.isPresent()) ans += book.get().getCost() * bookList.get(id);
 		}
 		return ans;
 	}

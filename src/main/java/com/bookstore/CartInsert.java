@@ -1,14 +1,13 @@
 package com.bookstore;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class CartInsert {
-	@Getter @Setter
 	private int id;
-	@Getter @Setter
 	private int amount;
-	
-	public CartInsert() {
-	}
 }
