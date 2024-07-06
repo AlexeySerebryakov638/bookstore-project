@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.bookstore.Book;
-import com.bookstore.providers.BookProvider;
 import com.bookstore.providers.BookRepository;
 
 
