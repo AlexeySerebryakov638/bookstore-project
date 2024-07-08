@@ -39,7 +39,7 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth.requestMatchers("/").permitAll())
         	.authorizeHttpRequests(auth -> auth.requestMatchers("/cart/").authenticated())
-        	.authorizeHttpRequests(auth -> auth.requestMatchers("/employee/").hasAnyRole("employee"))
+        	.authorizeHttpRequests(auth -> auth.requestMatchers("/employee/").hasAnyRole("employee", "admin"))
             .formLogin(login -> login.permitAll())
             .logout(logout -> logout.permitAll())
         ;
