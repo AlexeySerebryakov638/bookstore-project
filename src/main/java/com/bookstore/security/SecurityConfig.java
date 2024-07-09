@@ -3,8 +3,10 @@ package com.bookstore.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -38,11 +40,11 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth.requestMatchers("/").permitAll())
+    		.authorizeHttpRequests(auth -> auth.requestMatchers("/user/**").permitAll())
         	.authorizeHttpRequests(auth -> auth.requestMatchers("/cart/").authenticated())
-        	.authorizeHttpRequests(auth -> auth.requestMatchers("/employee/").hasAnyRole("employee", "admin"))
+        	.authorizeHttpRequests(auth -> auth.requestMatchers("/employee/**").hasAnyRole("employee", "admin"))
             .formLogin(login -> login.permitAll())
-            .logout(logout -> logout.permitAll())
-        ;
+            .logout(logout -> logout.permitAll());
          
         return http.build();
     }
