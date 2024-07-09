@@ -19,19 +19,19 @@ public class EmployeeController {
 	BookRepository bookRepository;
     
     @GetMapping("")
-    public String employee(Model model) {
-    	return "employeemenu";
+    public String root(Model model) {
+    	return "employee.root";
     }
     
     @GetMapping("/add-book")
-    public String add(Model model) {
+    public String addBook(Model model) {
     	model.addAttribute("book", new Book());
-    	return "addbook";
+    	return "employee.add-book";
     }
     
     @PostMapping("/save-book")
-    public String save(@ModelAttribute Book book) {
+    public String saveBook(@ModelAttribute Book book) {
     	bookRepository.save(book);
-    	return "savebook";
+    	return "employee.save-book";
     }
 }

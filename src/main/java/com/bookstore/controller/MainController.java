@@ -22,29 +22,29 @@ public class MainController {
 	CartProvider cartProvider;
     
     @GetMapping("")
-    public String list(Model model) {
-    	return "booklist";
+    public String root(Model model) {
+    	return "root";
     }
     
     @GetMapping("/book")
-    public String bookpage(Model model, @RequestParam Integer id) {
+    public String book(Model model, @RequestParam Integer id) {
     	var book = bookRepository.findById(id).get();
     	model.addAttribute("book", book);
     	model.addAttribute("insert", new CartInsert());
     	model.addAttribute("curamount", cartProvider.getBookCount(id));
-    	return "bookpage";
+    	return "book";
     }
     
 
     @GetMapping("/cart")
     public String cart(Model model) {
-    	return "cartlist";
+    	return "cart";
     }
     
     
     @PostMapping("/buy")
     public String buy(@ModelAttribute CartInsert insert) {
     	cartProvider.addBook(insert);
-    	return "buybook";
+    	return "buy";
     }
 }
