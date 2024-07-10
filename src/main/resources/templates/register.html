@@ -12,7 +12,10 @@
 		        <input type="text" th:field="*{password}"/>
 		    </div>
 		    <input type="hidden" name="enabled" value="true"/>
-		    <input type="hidden" name="role" value="employee"/>
+	    	<select th:field="*{role}">
+				<option th:value="employee"> Работник </option>
+				<option th:value="client"> Клиент </option>
+			</select>
 		    <button type="submit">Зарегистрироваться</button>
 		</form>
 	</body>
