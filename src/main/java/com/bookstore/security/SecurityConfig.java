@@ -42,7 +42,8 @@ public class SecurityConfig {
  
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(auth -> auth.requestMatchers("/**").permitAll())
+        http.authorizeHttpRequests(auth -> auth.requestMatchers("/").permitAll())
+        	.authorizeHttpRequests(auth -> auth.requestMatchers("/**.jpg").permitAll())
 			.authorizeHttpRequests(auth -> auth.requestMatchers("/book").permitAll())
     		.authorizeHttpRequests(auth -> auth.requestMatchers("/user/**").permitAll())
         	.authorizeHttpRequests(auth -> auth.requestMatchers("/cart").authenticated())
