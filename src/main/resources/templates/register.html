@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<body>
+		<h1>Регистрация</h1>
+		<form th:action="@{/user/save-user}" th:object="${user}" method="post">
+		    <div>
+		        <label>Логин: </label>
+		        <input type="text" th:field="*{username}"/>
+		    </div>
+		    <div>
+		        <label>Пароль: </label>
+		        <input type="text" th:field="*{password}"/>
+		    </div>
+		    <input type="hidden" name="enabled" value="true"/>
+	    	<select th:field="*{role}">
+				<option th:value="employee"> Работник </option>
+				<option th:value="client"> Клиент </option>
+			</select>
+		    <button type="submit">Зарегистрироваться</button>
+		</form>
+	</body>
+</html>
