@@ -39,11 +39,12 @@ public class CartService {
 }
 	
 	public void addBook(CartInsert insert) {
-		Book book = bookService.findById(insert.getId()).get();
+		Book book = insert.getBook();
+		int amount = insert.getAmount();
 		
 		Record record = new Record();
 		record.setBook(book);
-		record.setAmount(insert.getAmount());
+		record.setAmount(amount);
 		recordService.save(record);
 		
 		User user = currentUser();
