@@ -3,15 +3,12 @@ package com.bookstore.providers;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.bookstore.Book;
 import com.bookstore.CartInsert;
-import com.bookstore.Order;
 import com.bookstore.Record;
 import com.bookstore.security.User;
-import com.bookstore.security.UserRepository;
 import com.bookstore.security.UserService;
 
 @Service
