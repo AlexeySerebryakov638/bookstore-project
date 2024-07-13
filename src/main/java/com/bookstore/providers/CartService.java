@@ -29,11 +29,11 @@ public class CartService {
 	}
 	
 	public Set<Record> getBookList() {
-		return getUserCartOrder().getRecords();
+		return userService.getCurrentUser().getCart().getRecords();
 	}
 	
 	public Integer getBookCount(Book book) {
-		Record record = recordService.findByOrderAndBook(getUserCartOrder(), book);
+		Record record = recordService.findByOrderAndBook(userService.getCurrentUser().getCart(), book);
 		if (record == null) return 0;
 		return record.getAmount();
 }
@@ -47,27 +47,17 @@ public class CartService {
 		record.setAmount(amount);
 		recordService.save(record);
 		
-		User user = currentUser();
+		User user = userService.getCurrentUser();
 		user.getCart().getRecords().add(record);
 		userService.save(user);
 	}
 	
 	public float getTotalCost() {
 		float ans = 0;
-		for (Record r : getUserCartOrder().getRecords()) {	
+		for (Record r : userService.getCurrentUser().getCart().getRecords()) {	
 			var book = r.getBook();
 			ans += book.getCost() * r.getAmount();
 		}
 		return ans;
-	}
-	
-	private Order getUserCartOrder() {
-		User user = currentUser();
-		return user.getCart();
-	}
-	
-	private User currentUser() {
-		User user = userService.getUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-		return user;
 	}
 }
