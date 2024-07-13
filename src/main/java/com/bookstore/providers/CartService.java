@@ -12,19 +12,20 @@ import com.bookstore.Order;
 import com.bookstore.Record;
 import com.bookstore.security.User;
 import com.bookstore.security.UserRepository;
+import com.bookstore.security.UserService;
 
 @Service
-public class CartProvider {
+public class CartService {
 	@Autowired
-	BookRepository bookRepository;
+	BookService bookService;
 	
 	@Autowired
-	UserRepository userRepository;
+	UserService userService;
 	
 	@Autowired
-	RecordRepository recordRepository;
+	RecordService recordService;
 	
-	public CartProvider() {
+	public CartService() {
 	}
 	
 	public Set<Record> getBookList() {
@@ -32,22 +33,22 @@ public class CartProvider {
 	}
 	
 	public Integer getBookCount(Book book) {
-		Record record = recordRepository.findByOrderAndBook(getUserCartOrder(), book);
+		Record record = recordService.findByOrderAndBook(getUserCartOrder(), book);
 		if (record == null) return 0;
 		return record.getAmount();
 }
 	
 	public void addBook(CartInsert insert) {
-		Book book = bookRepository.findById(insert.getId()).get();
+		Book book = bookService.findById(insert.getId()).get();
 		
 		Record record = new Record();
 		record.setBook(book);
 		record.setAmount(insert.getAmount());
-		recordRepository.save(record);
+		recordService.save(record);
 		
 		User user = currentUser();
 		user.getCart().getRecords().add(record);
-		userRepository.save(user);
+		userService.save(user);
 	}
 	
 	public float getTotalCost() {
@@ -65,7 +66,7 @@ public class CartProvider {
 	}
 	
 	private User currentUser() {
-		User user = userRepository.getUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+		User user = userService.getUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
 		return user;
 	}
 }

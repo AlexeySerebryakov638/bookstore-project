@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.bookstore.providers.BookRepository;
-import com.bookstore.providers.CartProvider;
+import com.bookstore.providers.CartService;
 
 @SpringBootTest
 public class CartTests {
@@ -15,7 +15,7 @@ public class CartTests {
 	@Autowired
 	BookRepository bookRepository;
 	@Autowired
-	CartProvider cartProvider;
+	CartService cartProvider;
 
 	@Test
 	void insertBooksIntoCartTest() {		

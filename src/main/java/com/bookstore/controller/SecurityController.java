@@ -13,6 +13,7 @@ import com.bookstore.Order;
 import com.bookstore.providers.OrderRepository;
 import com.bookstore.security.User;
 import com.bookstore.security.UserRepository;
+import com.bookstore.security.UserService;
 
 import jakarta.persistence.Transient;
 
@@ -21,11 +22,7 @@ import jakarta.persistence.Transient;
 @RequestMapping("/user")
 public class SecurityController {
 	@Autowired
-	UserRepository userRepository;
-	@Autowired
-	OrderRepository orderRepository;
-	@Autowired
-	PasswordEncoder passwordEncoder;
+	UserService userService;
 	
     @GetMapping("/register")
     public String book(Model model) {
@@ -35,12 +32,7 @@ public class SecurityController {
     
     @PostMapping("/save-user")
     public String saveUser(@ModelAttribute User user) {
-    	// ужасно
-    	user.setPassword(passwordEncoder.encode(user.getPassword()));
-    	Order order = new Order();
-    	orderRepository.save(order);
-    	user.setCart(order);
-    	userRepository.save(user);
+    	userService.save(user);
     	return "save-user";
     }
     
