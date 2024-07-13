@@ -21,6 +21,8 @@ public class Record {
     private Long id;
 	
 	@ManyToOne
+	Order order;
+	@ManyToOne
 	Book book;
 	Integer amount;
 }

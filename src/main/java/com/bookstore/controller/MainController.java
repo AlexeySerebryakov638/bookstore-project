@@ -37,14 +37,13 @@ public class MainController {
     	var book = bookRepository.findById(id).get();
     	model.addAttribute("book", book);
     	model.addAttribute("insert", new CartInsert());
-    	model.addAttribute("curamount", cartProvider.getBookCount(id));
+    	model.addAttribute("curamount", cartProvider.getBookCount(book));
     	return "book";
     }
     
     
     @GetMapping("/cart")
     public String cart(Model model, @AuthenticationPrincipal UserDetails user) {
-    	System.out.println(user.getUsername());
     	return "cart";
     }
     

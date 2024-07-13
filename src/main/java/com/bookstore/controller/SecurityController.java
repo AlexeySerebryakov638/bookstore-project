@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.bookstore.Order;
+import com.bookstore.providers.OrderRepository;
 import com.bookstore.security.User;
 import com.bookstore.security.UserRepository;
 
@@ -21,7 +23,9 @@ public class SecurityController {
 	@Autowired
 	UserRepository userRepository;
 	@Autowired
-	PasswordEncoder passwordEncoder;;
+	OrderRepository orderRepository;
+	@Autowired
+	PasswordEncoder passwordEncoder;
 	
     @GetMapping("/register")
     public String book(Model model) {
@@ -33,6 +37,9 @@ public class SecurityController {
     public String saveUser(@ModelAttribute User user) {
     	// ужасно
     	user.setPassword(passwordEncoder.encode(user.getPassword()));
+    	Order order = new Order();
+    	orderRepository.save(order);
+    	user.setCart(order);
     	userRepository.save(user);
     	return "save-user";
     }

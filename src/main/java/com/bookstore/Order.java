@@ -27,7 +27,7 @@ public class Order {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-	String status;
+	String status = "cart";
 	
 	@ManyToOne
 	private User user;

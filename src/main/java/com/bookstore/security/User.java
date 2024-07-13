@@ -8,7 +8,6 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.bookstore.Cart;
 import com.bookstore.Order;
 
 import jakarta.annotation.Nonnull;
@@ -46,7 +45,7 @@ public class User {
     private boolean enabled;
 	
 	@OneToOne
-	Cart cart;
+	Order cart;
 	@OneToMany
 	Set<Order> orders = new HashSet<>();
 }
