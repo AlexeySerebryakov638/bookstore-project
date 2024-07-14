@@ -37,7 +37,7 @@ public class SecurityConfig {
         	.authorizeHttpRequests(auth -> auth.requestMatchers("/**.jpg").permitAll())
 			.authorizeHttpRequests(auth -> auth.requestMatchers("/book").permitAll())
     		.authorizeHttpRequests(auth -> auth.requestMatchers("/user/**").permitAll())
-        	.authorizeHttpRequests(auth -> auth.requestMatchers("/cart").authenticated())
+        	.authorizeHttpRequests(auth -> auth.requestMatchers("/cart/**").authenticated())
         	.authorizeHttpRequests(auth -> auth.requestMatchers("/buy").authenticated())
         	.authorizeHttpRequests(auth -> auth.requestMatchers("/employee/**").hasAnyAuthority("employee", "admin"))
             .formLogin(login -> login.permitAll())

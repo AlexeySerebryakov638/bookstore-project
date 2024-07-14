@@ -5,9 +5,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.bookstore.providers.BookRepository;
 import com.bookstore.providers.CartService;
+import com.bookstore.security.UserRepository;
 
 @SpringBootTest
 public class CartTests {
@@ -16,6 +18,8 @@ public class CartTests {
 	BookRepository bookRepository;
 	@Autowired
 	CartService cartProvider;
+	@MockBean
+	UserRepository userRepository;
 
 	@Test
 	void insertBooksIntoCartTest() {		

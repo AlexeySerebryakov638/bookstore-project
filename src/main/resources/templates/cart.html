@@ -8,7 +8,6 @@
 	
 	<body>
 		<h1>Корзина</h1>
-		<div th:text="${#authentication.name}" ></div>
 		<table>
 			<tr> 
 				<th>id</th>
@@ -26,7 +25,7 @@
 				<th>Цена</th>
 				<th>Кол-во в корзине</th>
 			</tr>
-			<tr th:each="record : ${@cartProvider.getBookList}" th:with="book=${record.book}">
+			<tr th:each="record : ${@cartService.getBookList}" th:with="book=${record.book}">
 				<td> <span th:text="${book.id}"></span></td>
 				<td> <img th:src="@{''+${book.image}}" alt="${book.image}"/> </td>
 				<td> <span th:text="${book.newBook} ? '!!!' : ''"></span></td>
@@ -44,9 +43,13 @@
 			</tr>
 		</table>
 		
-		<div>
-			<h2>Общая стоимость</h2>
-			<span th:text="${@cartProvider.getTotalCost()}"></span>
-		</div>
+		<form th:action="@{/cart/buy}" method="post">
+			<div>
+				<h2>Общая стоимость</h2>
+				<span th:text="${@cartService.getTotalCost()}"></span>
+			</div>
+			
+			<input type="submit" value="Оформить заказ"/>
+		</form>
 	</body>
 </html>
