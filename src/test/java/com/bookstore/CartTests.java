@@ -5,9 +5,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.bookstore.providers.BookRepository;
-import com.bookstore.providers.CartProvider;
+import com.bookstore.providers.CartService;
+import com.bookstore.security.UserRepository;
 
 @SpringBootTest
 public class CartTests {
@@ -15,16 +17,17 @@ public class CartTests {
 	@Autowired
 	BookRepository bookRepository;
 	@Autowired
-	CartProvider cartProvider;
+	CartService cartProvider;
+	@MockBean
+	UserRepository userRepository;
 
 	@Test
 	void insertBooksIntoCartTest() {		
-		cartProvider.addBook(new CartInsert(1, 10));
-		cartProvider.addBook(new CartInsert(2, 20));
+		Book book = new Book();
+		cartProvider.addBook(new CartInsert(book, 10));
+		cartProvider.addBook(new CartInsert(book, 20));
 		
-		assertThat(cartProvider.getBookCount(1) == 10);
-		assertThat(cartProvider.getBookCount(2) == 20);
-		assertThat(cartProvider.getBookCount(3) == 0);
+		assertThat(cartProvider.getBookCount(book) == 30);
 	}
 	
 	@Test
@@ -38,8 +41,8 @@ public class CartTests {
 		bookRepository.save(book1);
 		bookRepository.save(book2);
 		
-		cartProvider.addBook(new CartInsert(book1.getId(), 10));
-		cartProvider.addBook(new CartInsert(book2.getId(), 20));
+		cartProvider.addBook(new CartInsert(book1, 10));
+		cartProvider.addBook(new CartInsert(book2, 20));
 		
 		assertThat(cartProvider.getTotalCost() == 20.0 * 10 + 100.0 * 20);
 	}

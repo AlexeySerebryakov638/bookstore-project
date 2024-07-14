@@ -25,7 +25,7 @@
 				<th>Цена</th>
 				<th>Кол-во в корзине</th>
 			</tr>
-			<tr th:each="id : ${@cartProvider.bookList.keySet}" th:if="${@bookRepository.findById(id).isPresent()}" th:with="book=${@bookRepository.findById(id).get()}">
+			<tr th:each="record : ${@cartService.getBookList}" th:with="book=${record.book}">
 				<td> <span th:text="${book.id}"></span></td>
 				<td> <img th:src="@{''+${book.image}}" alt="${book.image}"/> </td>
 				<td> <span th:text="${book.newBook} ? '!!!' : ''"></span></td>
@@ -39,13 +39,17 @@
 				<td> <span th:text="${book.pages}"></span></td>
 				<td> <span th:text="${book.rate} > 0 ? (${book.rate}+' / 10') : ''"></span></td>
 				<td> <span th:text="${book.cost}"></span></td>
-				<td> <span th:text="${@cartProvider.getBookCount(id)}"></span></td>
+				<td> <span th:text="${record.amount}"></span></td>
 			</tr>
 		</table>
 		
-		<div>
-			<h2>Общая стоимость</h2>
-			<span th:text="${@cartProvider.getTotalCost()}"></span>
-		</div>
+		<form th:action="@{/cart/buy}" method="post">
+			<div>
+				<h2>Общая стоимость</h2>
+				<span th:text="${@cartService.getTotalCost()}"></span>
+			</div>
+			
+			<input type="submit" value="Оформить заказ"/>
+		</form>
 	</body>
 </html>

@@ -1,44 +1,39 @@
-package com.bookstore.security;
+package com.bookstore;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import com.bookstore.Order;
+import com.bookstore.security.User;
 
-import jakarta.annotation.Nonnull;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "users")
+@Table(name = "records")
 @Data
 @NoArgsConstructor
-public class User {
-	
+@AllArgsConstructor
+public class Order {
 	@Id
-    @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+	String status = "cart";
 	
-	@Nonnull
-    private String username;
-	@Nonnull
-    private String password;
-	@Nonnull
-    private String role;
-	@Nonnull
-    private boolean enabled;
+	@ManyToOne
+	private User user;
 	
-	@OneToOne
-	Order cart;
 	@OneToMany
-	Set<Order> orders = new HashSet<>();
+	@EqualsAndHashCode.Exclude
+	Set<Record> records = new HashSet<>();
+	
 }
