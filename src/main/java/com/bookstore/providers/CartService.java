@@ -35,6 +35,8 @@ public class CartService {
 	
 	public Integer getBookCount(Book book) {
 		Record record = recordService.findByOrderAndBook(userService.getCurrentUser().getCart(), book);
+		System.out.println(book);
+		System.out.println(record);
 		if (record == null) return 0;
 		return record.getAmount();
 }
@@ -42,15 +44,16 @@ public class CartService {
 	public void addBook(CartInsert insert) {
 		Book book = bookService.findById(insert.getId()).get();
 		int amount = insert.getAmount();
+		User user = userService.getCurrentUser();
 		
 		Record record = new Record();
 		record.setBook(book);
 		record.setAmount(amount);
-		record = recordService.save(record);
 		
-		User user = userService.getCurrentUser();
 		Order cart = user.getCart();
 		cart.getRecords().add(record);
+		
+		record = recordService.save(record);
 		orderService.save(cart);
 	}
 	

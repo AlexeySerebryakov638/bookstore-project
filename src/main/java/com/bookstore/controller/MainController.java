@@ -69,10 +69,15 @@ public class MainController {
     	user.getOrders().add(cart);
     	
     	cart = new Order(); // ...
-    	user.setCart(cart);
     	cart = orderService.save(cart);
+    	user.setCart(cart);
     	orderService.save(cart);
     	userService.save(user);
     	return "cart.buy";
+    }
+    
+    @GetMapping("/orders")
+    public String orders(Model model) {
+    	return "orders";
     }
 }

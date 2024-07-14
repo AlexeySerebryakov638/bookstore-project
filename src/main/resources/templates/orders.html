@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head>
+		<meta charset="UTF-8">
+		<title>Заказы</title>
+	</head>
+	
+	<body>
+		<h1>Заказы</h1>
+		
+		<div th:each="order : ${@userService.currentUser.orders}">
+			<div th:each="record : ${order.records}" th:with="book=${record.book}">
+				<span th:text="${book.name} + ' - ' + ${book.cost} + ' x ' + ${record.amount}"></span>
+			</div>
+			<div>
+				<span th:text="'Общая стоимость : ' + ${@orderService.getTotalCost(order)}"></span>
+			</div>
+		</div>
+	</body>
+</html>
