@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.bookstore.Book;
 import com.bookstore.CartInsert;
+import com.bookstore.Order;
 import com.bookstore.Record;
 import com.bookstore.security.User;
 import com.bookstore.security.UserService;
@@ -22,6 +23,9 @@ public class CartService {
 	@Autowired
 	RecordService recordService;
 	
+	@Autowired
+	OrderService orderService;
+	
 	public CartService() {
 	}
 	
@@ -36,17 +40,18 @@ public class CartService {
 }
 	
 	public void addBook(CartInsert insert) {
-		Book book = insert.getBook();
+		Book book = bookService.findById(insert.getId()).get();
 		int amount = insert.getAmount();
 		
 		Record record = new Record();
 		record.setBook(book);
 		record.setAmount(amount);
-		recordService.save(record);
+		record = recordService.save(record);
 		
 		User user = userService.getCurrentUser();
-		user.getCart().getRecords().add(record);
-		userService.save(user);
+		Order cart = user.getCart();
+		cart.getRecords().add(record);
+		orderService.save(cart);
 	}
 	
 	public float getTotalCost() {

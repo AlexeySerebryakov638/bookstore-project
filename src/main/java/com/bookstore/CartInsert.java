@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CartInsert {
-	private Book book;
+	private int id;
 	private int amount;
 }
