@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bookstore.Book;
 import com.bookstore.providers.BookRepository;
@@ -27,6 +28,13 @@ public class EmployeeController {
     public String addBook(Model model) {
     	model.addAttribute("book", new Book());
     	return "employee.add-book";
+    }
+
+    
+    @GetMapping("/edit-book")
+    public String editBook(Model model, @RequestParam Integer id) {
+    	model.addAttribute("id", id);
+    	return "employee.edit-book";
     }
     
     @PostMapping("/save-book")
