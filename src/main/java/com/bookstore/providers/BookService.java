@@ -20,4 +20,8 @@ public class BookService {
 	public Optional<Book> findById(Integer id) {
 		return bookRepository.findById(id);
 	}
+	
+	public Iterable<Book> findAll() {
+		return bookRepository.findAll();
+	}
 }

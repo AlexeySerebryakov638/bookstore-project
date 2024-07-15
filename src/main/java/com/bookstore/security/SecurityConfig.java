@@ -41,6 +41,7 @@ public class SecurityConfig {
         	.authorizeHttpRequests(auth -> auth.requestMatchers("/orders/**").authenticated())
         	.authorizeHttpRequests(auth -> auth.requestMatchers("/buy").authenticated())
         	.authorizeHttpRequests(auth -> auth.requestMatchers("/employee/**").hasAnyAuthority("employee", "admin"))
+        	.authorizeHttpRequests(auth -> auth.requestMatchers("/api/**").permitAll())
             .formLogin(login -> login.permitAll())
             .logout(logout -> logout.permitAll());
          
