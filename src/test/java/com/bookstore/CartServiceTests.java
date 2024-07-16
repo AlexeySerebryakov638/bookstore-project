@@ -18,7 +18,7 @@ import com.bookstore.security.UserService;
 import com.bookstore.security.User;
 
 @SpringBootTest
-public class CartTests {
+public class CartServiceTests {
 	
 	@Autowired
 	BookRepository bookRepository;
@@ -39,8 +39,14 @@ public class CartTests {
 		Book book = new Book();
 		book.setId(1);
 		cartService.addBook(new CartInsert(book.getId(), 10));
+		cartService.addBook(new CartInsert(book.getId(), 20));
 		
-		assertThat(cartService.getBookCount(book) == 10);
+		Book book2 = new Book();
+		book2.setId(2);
+		
+		assertThat(cartService.getBookCount(book) == 30);
+		assertThat(cartService.getBookCount(book2) == 0);
+		assertThat(cartService.getBookList().size() == 1);
 	}
 	
 	@Test

@@ -48,4 +48,26 @@ public class EmployeeControllerTests {
 		mvc.perform(MockMvcRequestBuilders.post("/employee/save-book", book))
 			.andExpect(MockMvcResultMatchers.status().isOk());
 	}
+	
+	@Test
+	@WithMockUser(authorities="employee")
+	void testGetMenu() throws Exception {
+		mvc.perform(MockMvcRequestBuilders.get("/employee"))
+			.andExpect(MockMvcResultMatchers.status().isOk());
+	}
+	
+
+	@Test
+	@WithMockUser(authorities="employee")
+	void testGetAddBook() throws Exception {
+		mvc.perform(MockMvcRequestBuilders.get("/employee/add-book"))
+			.andExpect(MockMvcResultMatchers.status().isOk());
+	}
+	
+	@Test
+	@WithMockUser(authorities="employee")
+	void testGetEditBook() throws Exception {
+		mvc.perform(MockMvcRequestBuilders.get("/employee/edit-book"))
+			.andExpect(MockMvcResultMatchers.status().isBadRequest());
+	}
 }

@@ -49,14 +49,15 @@ public class CartService {
 			record = new Record();
 			record.setBook(book);
 			record.setAmount(amount);
+			record.setOrder(cart);
+			record = recordService.save(record);
+			cart.getRecords().add(record);
+			cart = orderService.save(cart);
 		} else {
 			record.setAmount(record.getAmount() + amount);
+			record = recordService.save(record);
 		}
 		
-		record.setOrder(cart);
-		record = recordService.save(record);
-		cart.getRecords().add(record);
-		cart = orderService.save(cart);
 	}
 	
 	public float getTotalCost() {
