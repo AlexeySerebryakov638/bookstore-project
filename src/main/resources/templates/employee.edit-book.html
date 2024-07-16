@@ -111,7 +111,8 @@
 	  					amount: document.getElementById("amount").value
         			}),
         			headers: headers
-        		});
+        		})
+        		.then(response => alert("Изменения сохранены"));
         	}
         </script>
 	</body>
