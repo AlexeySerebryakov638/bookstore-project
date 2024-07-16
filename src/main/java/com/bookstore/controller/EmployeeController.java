@@ -1,6 +1,7 @@
 package com.bookstore.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,13 +12,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bookstore.Book;
 import com.bookstore.providers.BookRepository;
+import com.bookstore.providers.BookService;
 
 
 @Controller
 @RequestMapping("/employee")
 public class EmployeeController {
 	@Autowired
-	BookRepository bookRepository;
+	BookService bookService;
     
     @GetMapping("")
     public String root(Model model) {
@@ -39,7 +41,8 @@ public class EmployeeController {
     
     @PostMapping("/save-book")
     public String saveBook(@ModelAttribute Book book) {
-    	bookRepository.save(book);
+		System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
+    	bookService.save(book);
     	return "employee.save-book";
     }
 }
