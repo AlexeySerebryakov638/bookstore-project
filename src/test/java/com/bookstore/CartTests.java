@@ -3,13 +3,19 @@ package com.bookstore;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.test.context.support.WithMockUser;
 
 import com.bookstore.providers.BookRepository;
 import com.bookstore.providers.CartService;
+import com.bookstore.providers.OrderService;
 import com.bookstore.security.UserRepository;
+import com.bookstore.security.UserService;
+import com.bookstore.security.User;
 
 @SpringBootTest
 public class CartTests {
@@ -17,33 +23,41 @@ public class CartTests {
 	@Autowired
 	BookRepository bookRepository;
 	@Autowired
-	CartService cartProvider;
+	CartService cartService;
+	@Autowired
+	OrderService orderService;
 	@MockBean
-	UserRepository userRepository;
+	UserService userService;
 
 	@Test
-	void insertBooksIntoCartTest() {		
-		Book book = new Book();
-		cartProvider.addBook(new CartInsert(book, 10));
-		cartProvider.addBook(new CartInsert(book, 20));
+	void insertBooksIntoCartTest() {	
+		User user = new User();
+		user.setCart(new Order());
+		orderService.save(user.getCart());
+		Mockito.when(userService.getCurrentUser()).thenReturn(user);
 		
-		assertThat(cartProvider.getBookCount(book) == 30);
+		Book book = new Book();
+		book.setId(1);
+		cartService.addBook(new CartInsert(book.getId(), 10));
+		
+		assertThat(cartService.getBookCount(book) == 10);
 	}
 	
 	@Test
 	void getTotalCostInCartTest() {
+		User user = new User();
+		user.setCart(new Order());
+		orderService.save(user.getCart());
+		Mockito.when(userService.getCurrentUser()).thenReturn(user);
+		
 		Book book1 = new Book(1);
-		Book book2 = new Book(2);
 		
 		book1.setCost(20.0f);
-		book2.setCost(100.0f);
 		
 		bookRepository.save(book1);
-		bookRepository.save(book2);
 		
-		cartProvider.addBook(new CartInsert(book1, 10));
-		cartProvider.addBook(new CartInsert(book2, 20));
+		cartService.addBook(new CartInsert(book1.getId(), 10));
 		
-		assertThat(cartProvider.getTotalCost() == 20.0 * 10 + 100.0 * 20);
+		assertThat(cartService.getTotalCost() == 200.0f);
 	}
 }
