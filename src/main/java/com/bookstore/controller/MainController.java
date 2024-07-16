@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.bookstore.Book;
 import com.bookstore.CartInsert;
@@ -37,6 +38,11 @@ public class MainController {
     @GetMapping("")
     public String root(Model model) {
     	return "root";
+    }
+    
+    @GetMapping("login-redirect")
+    public ModelAndView loginRedirect(Model model) {
+    	return new ModelAndView("redirect:/");
     }
     
     @GetMapping("/book")

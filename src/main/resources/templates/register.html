@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>Регистрация</title>
+		<link rel="stylesheet" th:href="@{styles.css}" />
+	</head>
 	<body>
+		<div th:insert="~{template-navbar::navbar}">  </div>
 		<h1>Регистрация</h1>
 		<form th:action="@{/user/save-user}" th:object="${user}" method="post">
 		    <div>

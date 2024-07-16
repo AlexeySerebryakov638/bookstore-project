@@ -4,9 +4,11 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Список книг</title>
+		<link rel="stylesheet" th:href="@{styles.css}" />
 	</head>
 	
 	<body>
+		<div th:insert="~{template-navbar::navbar}">  </div>
 		<h1>Список книг</h1>
 		
 		<table>

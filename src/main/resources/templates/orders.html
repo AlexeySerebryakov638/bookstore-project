@@ -4,12 +4,14 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Заказы</title>
+		<link rel="stylesheet" th:href="@{styles.css}" />
 	</head>
 	
 	<body>
+		<div th:insert="~{template-navbar::navbar}">  </div>
 		<h1>Заказы</h1>
 		
-		<div th:each="order : ${@userService.currentUser.orders}">
+		<div th:each="order : ${@userService.currentUser.orders}" class="div-border"> 
 			<div th:each="record : ${order.records}" th:with="book=${record.book}">
 				<span th:text="${book.name} + ' - ' + ${book.cost} + ' x ' + ${record.amount}"></span>
 			</div>

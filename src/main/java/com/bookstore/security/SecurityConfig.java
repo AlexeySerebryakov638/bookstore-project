@@ -35,8 +35,10 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth.requestMatchers("/").permitAll())
         	.authorizeHttpRequests(auth -> auth.requestMatchers("/**.jpg").permitAll())
+        	.authorizeHttpRequests(auth -> auth.requestMatchers("/**.css").permitAll())
 			.authorizeHttpRequests(auth -> auth.requestMatchers("/book").permitAll())
     		.authorizeHttpRequests(auth -> auth.requestMatchers("/user/**").permitAll())
+			.authorizeHttpRequests(auth -> auth.requestMatchers("/login-redirect").authenticated())
         	.authorizeHttpRequests(auth -> auth.requestMatchers("/cart/**").authenticated())
         	.authorizeHttpRequests(auth -> auth.requestMatchers("/orders/**").authenticated())
         	.authorizeHttpRequests(auth -> auth.requestMatchers("/buy").authenticated())

@@ -41,7 +41,6 @@ public class EmployeeController {
     
     @PostMapping("/save-book")
     public String saveBook(@ModelAttribute Book book) {
-		System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
     	bookService.save(book);
     	return "employee.save-book";
     }

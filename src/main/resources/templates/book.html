@@ -1,27 +1,33 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	<head>
 		<meta charset="UTF-8">
 		<title>Книга</title>
+		<link rel="stylesheet" th:href="@{styles.css}" />
 	</head>
 	
 	<body>
-		ИД: <span th:text="${book.id}"></span>
-		<img th:src="@{''+${book.image}}" alt="${book.image}"/>
-		Название: <span th:text="${book.newBook} ? '!!!' : ''"></span>
-		<span th:text="${book.name}"></span>
-		<span th:text="${book.author}"></span>
-		<span th:text="${book.language}"></span>
-		<span th:text="${book.publicationYear}"></span>
-		<span th:text="${book.genre}"></span>
-		<span th:text="${book.description}"></span>
-		<span th:text="${book.isbn}"></span>
-		<span th:text="${book.pages}"></span>
-		<span th:text="${book.rate} > 0 ? (${book.rate}+' / 10') : ' - '"></span>
-		<span th:text="${book.cost}"></span>
-		<span th:text="${book.amount}"></span>
+		<div th:insert="~{template-navbar::navbar}">  </div>
+		<div sec:authorize="hasAuthority('employee')"> 
+	    	<a th:href="@{/employee/edit-book}+'?id='+${book.id}"> Редактировать </a> 
+	    </div>
+	    
+		ИД: <span th:text="${book.id}"></span> <br/>
+		<img th:src="@{''+${book.image}}" alt="${book.image}"/> <br/>
+		<span th:text="${book.newBook} ? 'Новинка' : ''"></span> <br/>
+		Название: <span th:text="${book.name}"></span> <br/>
+		Автор <span th:text="${book.author}"></span> <br/>
+		Язык: <span th:text="${book.language}"></span> <br/>
+		Год издания: <span th:text="${book.publicationYear}"></span> <br/>
+		Жанр: <span th:text="${book.genre}"></span> <br/>
+		Описание: <span th:text="${book.description}"></span> <br/>
+		ISBN: <span th:text="${book.isbn}"></span> <br/>
+		Страниц: <span th:text="${book.pages}"></span> <br/>
+		Оценка: <span th:text="${book.rate} > 0 ? (${book.rate}+' / 10') : ' - '"></span> <br/>
+		Цена: <span th:text="${book.cost}"></span> <br/>
+		Кол-во: <span th:text="(${book.amount} == 0) ? 'Нет в наличии': ((${book.amount < 10})? 'Осталось мало' : 'Есть в наличии')"></span>
 		
-		<div>
+		<div class="div-border">
 			<span th:text="${curamount} > 0 ? ('Товар уже есть в корзине в количестве: ' + ${curamount}) : ''"></span> <br/>
 			<a th:href="@{/cart}">Проверить корзину</a><br/>
 			<form th:action="@{/buy}" th:object="${insert}" method="post">
