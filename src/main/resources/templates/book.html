@@ -32,7 +32,7 @@
 			<a th:href="@{/cart}">Проверить корзину</a><br/>
 			<form th:action="@{/buy}" th:object="${insert}" method="post">
 				<input type="hidden" th:value="${book.id}" th:name="id" />
-				<input type="number" th:value="1" th:name="amount" min=0 /> <br/>
+				<input type="number" th:value="1" th:name="amount" min=1 th:max = "${book.amount}"/> <br/>
 				<input type="submit" th:value="${curamount} > 0 ? 'Добавить еще' : 'Купить'" />
 			</form>
 		</div>

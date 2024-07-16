@@ -66,12 +66,12 @@ public class MainController {
     }
     
     @PostMapping("/cart/buy")
-    public String cartBuy(Model model) {
+    public String cartBuy(Model model) throws Exception {
     	User user = userService.getCurrentUser();
     	
     	Order cart = user.getCart();
     	cart.setStatus("in_progress");
-    	orderService.save(cart);
+    	orderService.submit(cart);
     	user.getOrders().add(cart);
     	
     	cart = new Order(); // ...

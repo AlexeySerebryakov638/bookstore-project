@@ -12,8 +12,21 @@ public class OrderService {
 	OrderRepository orderRepository;
 	
 	public Order save(Order order) {
-		order = orderRepository.save(order);
-		return order;
+		return orderRepository.save(order);
+	}
+	
+	public Order submit(Order order) throws Exception {
+		for (Record record : order.getRecords()) {
+			if (record.getAmount() > record.getBook().getAmount()) {
+				throw new Exception("Недостаточно книг в наличии!");
+			}
+		}
+
+		for (Record record : order.getRecords()) {
+			record.getBook().setAmount(record.getBook().getAmount() - record.getAmount());
+		}
+
+		return orderRepository.save(order);
 	}
 	
 	public float getTotalCost(Order order) {
