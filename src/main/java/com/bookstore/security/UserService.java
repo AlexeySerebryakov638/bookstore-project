@@ -20,11 +20,15 @@ public class UserService {
 	OrderService orderService;
 	
 	public User save(User user) {
-    	Order order = new Order();
-    	order = orderService.save(order);
-    	user.setCart(order);
-    	
     	user.setPassword(passwordEncoder.encode(user.getPassword()));
+    	user = userRepository.save(user);
+    	
+    	Order order = new Order();
+    	order.setUser(user);
+    	order = orderService.save(order);
+    	//...
+    	
+    	user.setCart(order);
     	user = userRepository.save(user);
     	return user;
 	}

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.bookstore.Book;
 import com.bookstore.CartInsert;
@@ -39,6 +40,11 @@ public class MainController {
     	return "root";
     }
     
+    @GetMapping("login-redirect")
+    public ModelAndView loginRedirect(Model model) {
+    	return new ModelAndView("redirect:/");
+    }
+    
     @GetMapping("/book")
     public String book(Model model, @RequestParam Integer id) {
     	Book book = bookService.findById(id).get();
@@ -60,12 +66,12 @@ public class MainController {
     }
     
     @PostMapping("/cart/buy")
-    public String cartBuy(Model model) {
+    public String cartBuy(Model model) throws Exception {
     	User user = userService.getCurrentUser();
     	
     	Order cart = user.getCart();
-    	cart.setStatus("in_progress");
-    	orderService.save(cart);
+    	cart.setStatus(orderService.INPROCESS);
+    	orderService.submit(cart);
     	user.getOrders().add(cart);
     	
     	cart = new Order(); // ...

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="_csrf_header_name" th:content="${_csrf.headerName}"/> 
+        <meta name="_csrf_token" th:content="${_csrf.token}"/>
+		<title>Изменить книгу</title>
+		<link rel="stylesheet" th:href="@{/styles.css}" />
+	</head>
+	
+	<body>
+		<h1>Добавить книгу</h1>
+        <label>ИД: </label> <span id="id"></span>
+
+        <label>Название: </label> <input type="text" class="form-control" id="name"> <br/>
+        <label>Автор: </label> <input type="text" class="form-control" id="author"> <br/>
+        
+	    <label>Язык: </label> 
+	    <select class="form-control" id="language">
+			<option value="Русский">Русский</option>
+			<option value="Английский">Английский</option>
+		</select> <br/>
+		
+        <label>Год публикации: </label> <input type="text" class="form-control" id="publicationYear"> <br/>
+        
+        <label>Жанр: </label> 
+        <select class="form-control" id="genre">
+			<option value="Детектив">Детектив</option>
+			<option value="Художественная литература">Художественная литература</option>
+			<option value="Учебная литература">Учебная литература</option>
+		</select> <br/>
+		
+        <label>Описание: </label><input type="text" class="form-control" id="description"> <br/>
+        <label>ISBN: </label> <input type="text" class="form-control" id="isbn"> <br/>
+        <label>Число страниц: </label> <input type="text" class="form-control" id="pages"> <br/>
+        <label>Оценка: </label> <input type="text" class="form-control" id="rate"> <br/>
+        <label>Новинка: </label> <input type="checkbox" id="newBook"/>
+        
+        <label>Обложка: </label>
+        <select class="form-control" id="image">
+			<option value="default.jpg"> default </option>
+			<option value="blue.jpg"> blue </option>
+			<option value="green.jpg"> geen </option>
+			<option value="purple.jpg"> purple </option>
+		</select> <br/>
+		
+        <label>Цена: </label> <input type="text" class="form-control" id="cost"> <br/>
+        <label>Количество: </label> <input type="text" class="form-control" id="amount"> <br/>
+        
+        <button onclick="save()"> Сохранить </button>
+        
+        <script>
+      		async function load() {
+      			const url = '../api/book/' + [[${id}]];
+      			fetch(url)
+      				.then(response => response.json())
+      				.then(data => {
+      					document.getElementById("id").textContent = data.id;
+      					document.getElementById("name").value = data.name;
+      					document.getElementById("author").value = data.author;
+      					document.getElementById("language").value = data.language;
+      					document.getElementById("publicationYear").value = data.publicationYear;
+      					document.getElementById("genre").value = data.genre;
+      					document.getElementById("description").value = data.description;
+      					document.getElementById("isbn").value = data.isbn;
+      					document.getElementById("pages").value = data.pages;
+      					document.getElementById("rate").value = data.rate;
+      					document.getElementById("newBook").checked = data.newBook;
+      					document.getElementById("image").value = data.image;
+      					document.getElementById("cost").value = data.cost;
+      					document.getElementById("amount").value = data.amount;
+      				})
+      		}
+      		
+      		load();
+      		
+      		function getCsrfToken(){
+      		   return document.querySelector('meta[name=_csrf_token]').content;
+      		}
+
+      		function getCsrfTokenName(){
+      		   return document.querySelector('meta[name=_csrf_header_name]').content;
+      		}
+      		 
+      		let csrfToken = this.getCsrfToken();
+      		let csrfTokenName = this.getCsrfTokenName();
+      		
+        	function save() {
+      			const url = '../api/save-book';
+   
+      			const headers = new Headers();
+      			headers.append("Content-type", "application/json; charset=UTF-8");
+      			headers.append(csrfTokenName, csrfToken);
+      			
+        		fetch(url, {
+        			method: "POST",
+                    credentials: 'include',
+        			body: JSON.stringify({
+        				id: document.getElementById("id").textContent,
+        				name: document.getElementById("name").value,
+        				author: document.getElementById("author").value,
+	  					language: document.getElementById("language").value,
+	  					publicationYear: document.getElementById("publicationYear").value,
+	  					genre: document.getElementById("genre").value,
+	  					description: document.getElementById("description").value,
+	  					isbn: document.getElementById("isbn").value,
+	  					pages: document.getElementById("pages").value,
+	  					rate: document.getElementById("rate").value,
+	  					newBook: document.getElementById("newBook").checked,
+	  					image: document.getElementById("image").value,
+	  					cost: document.getElementById("cost").value,
+	  					amount: document.getElementById("amount").value
+        			}),
+        			headers: headers
+        		})
+        		.then(response => alert("Изменения сохранены"));
+        	}
+        </script>
+	</body>
+</html>

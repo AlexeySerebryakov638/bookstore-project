@@ -17,6 +17,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "records")
@@ -30,10 +31,11 @@ public class Order {
 	String status = "cart";
 	
 	@ManyToOne
+	@EqualsAndHashCode.Exclude
+	@ToString.Exclude
 	private User user;
 	
 	@OneToMany
-	@EqualsAndHashCode.Exclude
 	Set<Record> records = new HashSet<>();
 	
 }

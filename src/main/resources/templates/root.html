@@ -4,9 +4,11 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Список книг</title>
+		<link rel="stylesheet" th:href="@{/styles.css}" />
 	</head>
 	
 	<body>
+		<div th:insert="~{template-navbar::navbar}">  </div>
 		<h1>Список книг</h1>
 		
 		<table>
@@ -26,7 +28,7 @@
 				<th>Цена</th>
 				<th>Кол-во на складе</th>
 			</tr>
-			<tr th:each="book : ${@bookRepository.findAll()}">
+			<tr th:each="book : ${@bookService.findAll()}">
 				<td> <span th:text="${book.id}"></span></td>
 				<td> <img th:src="@{''+${book.image}}" alt="${book.image}"/> </td>
 				<td> <span th:text="${book.newBook} ? '!!!' : ''"></span></td>

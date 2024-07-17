@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+	<head>
+		<meta charset="UTF-8">
+		<title>Заказ изменен</title>
+		<link rel="stylesheet" th:href="@{/styles.css}" />
+	</head>
+	<body>
+		<h1>Книга добавлена.</h1>
+		<a th:href="@{/employee/orders-inprocess}">Вернуться к списку заказов в доставке</a>
+		<a th:href="@{/employee/orders-delivered}">Перейти к списку доставленных заказов</a>
+	</body>
+</html>

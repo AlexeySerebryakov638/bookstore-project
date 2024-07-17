@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head>
+		<meta charset="UTF-8">
+		<title>Шаблон - шапка сайта</title>
+	</head>
+	<body>
+		<div>
+		 	<div th:fragment="navbar" class="navbar">
+		 	
+	            <div class="navbar-inner">
+	                <div> 
+	                	<a th:href="@{/}"> Список книг </a> 
+	                </div>
+	                <div sec:authorize="!isAuthenticated()"> 
+	                	<a th:href="@{/login-redirect}"> Вход </a>
+	                 	| 
+	                	<a th:href="@{/user/register}"> Регистрация </a>
+	                </div>
+	                <div sec:authorize="isAuthenticated()"> 
+	               		<a th:href="@{/cart}"> Корзина </a> 
+	               		|
+	               		<a th:href="@{/orders}"> Заказы </a> 
+	                </div>
+	                
+	                <div sec:authorize="hasAuthority('employee')"> 
+	               		<a th:href="@{/employee}"> Раздел работника </a> 
+	                </div>
+	            </div>
+	        </div>
+        </div>
+	</body>
+</html>

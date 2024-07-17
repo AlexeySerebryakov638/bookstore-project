@@ -4,9 +4,11 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Корзина</title>
+		<link rel="stylesheet" th:href="@{/styles.css}" />
 	</head>
 	
 	<body>
+		<div th:insert="~{template-navbar::navbar}">  </div>
 		<h1>Корзина</h1>
 		<table>
 			<tr> 
@@ -43,7 +45,7 @@
 			</tr>
 		</table>
 		
-		<form th:action="@{/cart/buy}" method="post">
+		<form th:action="@{/cart/buy}" method="post" class="div-border">
 			<div>
 				<h2>Общая стоимость</h2>
 				<span th:text="${@cartService.getTotalCost()}"></span>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+	<head>
+		<meta charset="UTF-8">
+		<title>Добавить</title>
+		<link rel="stylesheet" th:href="@{/styles.css}" />
+	</head>
+	<body>
+		<div th:insert="~{template-navbar::navbar}">  </div>
+		<h1>Заказы в доставке</h1>
+		
+		<div th:each="order : ${@orderService.inProcessOrderList}" class="div-border"> 
+			<form th:action="@{/employee/save-order}" th:object="${order}" method="post">
+				<input type="hidden" th:name="id" th:value="${order.id}"/>
+				<input type="hidden" th:name="status" th:value="${@orderService.DELIVERED}"/>
+				<div>
+					<span th:text="'Клиент: ' + ${order.user.username}"></span>
+				</div>
+				<div th:each="record : ${order.records}" th:with="book=${record.book}">
+					<span th:text="${book.name} + ' - ' + ${book.cost} + ' x ' + ${record.amount}"></span>
+				</div>
+				<div>
+					<span th:text="'Общая стоимость : ' + ${@orderService.getTotalCost(order)}"></span>
+				</div>
+				<div>
+					<input type="submit" value="Отметить доставку" /> 
+				</div>
+			</form>
+		</div>
+	</body>
+	</body>
+</html>

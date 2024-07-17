@@ -3,9 +3,13 @@
 	<head>
 		<meta charset="UTF-8"> 
 		<title>Меню</title>
+		<link rel="stylesheet" th:href="@{/styles.css}" />
 	</head>
 	
 	<body>
-		<a th:href="@{/employee/add-book}">Добавить книгу</a>
+		<div th:insert="~{template-navbar::navbar}">  </div>
+		<a th:href="@{/employee/add-book}">Добавить книгу</a> <br/>
+		<a th:href="@{/employee/orders-inprocess}">Заказы в доставке</a> <br/>
+		<a th:href="@{/employee/orders-delivered}">Доставленные заказы</a> <br/>
 	</body>
 </html>
