@@ -16,6 +16,7 @@
 				<span th:text="${book.name} + ' - ' + ${book.cost} + ' x ' + ${record.amount}"></span>
 			</div>
 			<div>
+				<span th:text="'Статус : ' + ${order.status}"></span> <br/>
 				<span th:text="'Общая стоимость : ' + ${@orderService.getTotalCost(order)}"></span>
 			</div>
 		</div>
