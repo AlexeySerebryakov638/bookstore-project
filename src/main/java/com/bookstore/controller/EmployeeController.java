@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bookstore.Book;
+import com.bookstore.Order;
 import com.bookstore.providers.BookRepository;
 import com.bookstore.providers.BookService;
+import com.bookstore.providers.OrderService;
 
 
 @Controller
@@ -20,6 +22,9 @@ import com.bookstore.providers.BookService;
 public class EmployeeController {
 	@Autowired
 	BookService bookService;
+	
+	@Autowired
+	OrderService orderService;
     
     @GetMapping("")
     public String root(Model model) {
@@ -43,5 +48,23 @@ public class EmployeeController {
     public String saveBook(@ModelAttribute Book book) {
     	bookService.save(book);
     	return "employee.save-book";
+    }
+    
+    @GetMapping("/orders-inprocess")
+    public String ordersInProcess(Model model) {
+    	return "employee.orders-inprocess";
+    }
+    
+    @GetMapping("/orders-delivered")
+    public String ordersDelivered(Model model) {
+    	return "employee.orders-delivered";
+    }
+    
+    @PostMapping("/save-order")
+    public String saveOrder(@ModelAttribute Order newOrder) {
+    	Order order = orderService.findById(newOrder.getId().intValue()).get();
+    	order.setStatus(newOrder.getStatus());
+    	order = orderService.save(order);
+    	return "employee.save-order";
     }
 }

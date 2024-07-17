@@ -70,7 +70,7 @@ public class MainController {
     	User user = userService.getCurrentUser();
     	
     	Order cart = user.getCart();
-    	cart.setStatus("in_progress");
+    	cart.setStatus(orderService.INPROCESS);
     	orderService.submit(cart);
     	user.getOrders().add(cart);
     	

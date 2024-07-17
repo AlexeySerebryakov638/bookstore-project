@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+	<head>
+		<meta charset="UTF-8">
+		<title>Добавить</title>
+		<link rel="stylesheet" th:href="@{/styles.css}" />
+	</head>
+	<body>
+		<div th:insert="~{template-navbar::navbar}">  </div>
+		<h1>Заказы в доставке</h1>
+		
+		<div th:each="order : ${@orderService.deliveredOrderList}" class="div-border"> 
+			<div>
+				<span th:text="'Клиент: ' + ${order.user.username}"></span>
+			</div>
+			<div th:each="record : ${order.records}" th:with="book=${record.book}">
+				<span th:text="${book.name} + ' - ' + ${book.cost} + ' x ' + ${record.amount}"></span>
+			</div>
+			<div>
+				<span th:text="'Общая стоимость : ' + ${@orderService.getTotalCost(order)}"></span>
+			</div>
+		</div>
+	</body>
+	</body>
+</html>

@@ -1,5 +1,7 @@
 package com.bookstore.providers;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,10 @@ import com.bookstore.Record;
 public class OrderService {
 	@Autowired
 	OrderRepository orderRepository;
+	
+	public final String CART = "cart";
+	public final String INPROCESS = "inprocess";
+	public final String DELIVERED = "delivered";
 	
 	public Order save(Order order) {
 		return orderRepository.save(order);
@@ -36,5 +42,17 @@ public class OrderService {
 			ans += book.getCost() * r.getAmount();
 		}
 		return ans;
+	}
+	
+	public Iterable<Order> getInProcessOrderList() {
+		return orderRepository.findByStatus(INPROCESS);
+	}
+	
+	public Iterable<Order> getDeliveredOrderList() {
+		return orderRepository.findByStatus(DELIVERED);
+	}
+	
+	public Optional<Order> findById(Integer id) {
+		return orderRepository.findById(id);
 	}
 }
