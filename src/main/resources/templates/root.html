@@ -28,7 +28,7 @@
 				<th>Цена</th>
 				<th>Кол-во на складе</th>
 			</tr>
-			<tr th:each="book : ${@bookRepository.findAll()}">
+			<tr th:each="book : ${@bookService.findAll()}">
 				<td> <span th:text="${book.id}"></span></td>
 				<td> <img th:src="@{''+${book.image}}" alt="${book.image}"/> </td>
 				<td> <span th:text="${book.newBook} ? '!!!' : ''"></span></td>
