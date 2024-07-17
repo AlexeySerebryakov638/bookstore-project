@@ -61,11 +61,6 @@ public class CartService {
 	}
 	
 	public float getTotalCost() {
-		float ans = 0;
-		for (Record r : userService.getCurrentUser().getCart().getRecords()) {	
-			var book = r.getBook();
-			ans += book.getCost() * r.getAmount();
-		}
-		return ans;
+		return orderService.getTotalCost(userService.getCurrentUser().getCart());
 	}
 }
